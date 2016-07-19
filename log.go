@@ -8,7 +8,7 @@ import (
 
 var LogLevel int
 
-func Init() {
+func init() {
 	logLevel := strings.ToLower(os.Getenv("LOG_LEVEL"))
 
 	switch logLevel {
