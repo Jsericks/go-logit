@@ -28,9 +28,13 @@ var (
 
 func init() {
 	initialLevel := strings.ToUpper(os.Getenv("LOG_LEVEL"))
+	if initialLevel == "" {
+		log.Println("Log level not provided in ENV. Setting to ERROR.")
+		initialLevel = "ERROR"
+	}
 	err := setLogLevelByName(initialLevel)
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 }
 
