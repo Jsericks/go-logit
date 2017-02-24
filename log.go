@@ -10,15 +10,15 @@ import (
 
 const (
 	// DEBUG doesn't filter any logs
-	DEBUG int = 0
+	DEBUG int32 = 0
 	// INFO filters only Debug logs
-	INFO int = 1
+	INFO int32 = 1
 	// WARN filters Info and Debug logs
-	WARN int = 2
+	WARN int32 = 2
 	// ERROR prints Error and Fatal logs
-	ERROR int = 3
+	ERROR int32 = 3
 	// FATAL prints only Fatal logs
-	FATAL int = 4
+	FATAL int32 = 4
 )
 
 var (
@@ -92,11 +92,11 @@ func setLogLevelByName(newLevel string) error {
 }
 
 // SetLogLevel takes the logLevel int and changes the level in a thread-safe way
-func SetLogLevel(newLevel int) error {
+func SetLogLevel(newLevel int32) error {
 	if newLevel < 0 || newLevel > 4 {
 		return errWrongLevel
 	}
-	atomic.StoreInt32(&logLevel, int32(newLevel))
+	atomic.StoreInt32(&logLevel, newLevel)
 	return nil
 }
 
@@ -119,6 +119,6 @@ func LogLevelName() string {
 }
 
 // LogLevel reads the level in a thread-safe way
-func LogLevel() int {
-	return int(atomic.LoadInt32(&logLevel))
+func LogLevel() int32 {
+	return atomic.LoadInt32(&logLevel)
 }
